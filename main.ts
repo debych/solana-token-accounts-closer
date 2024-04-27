@@ -67,9 +67,9 @@ async function closeChunkOfAccounts(
         } catch (error: any) {
             if (error instanceof TransactionExpiredBlockheightExceededError) {
                 console.log("Transaction expired. Retrying...");
-                await closeChunkOfAccounts(chunk, wallet);
             } else {
                 console.error('Error sending transaction:', error);
+                await sendTransactionWithRetry(txn, connectionRPC, wallet);
             }
         }
     }
